@@ -1,0 +1,22 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build the Docker image
+      run: docker build . --file Dockerfile --tag carlosadrianpintos/demo:nodeapp-${GITHUB_SHA}
+    - name: Login to DockerHub Registry
+      run: echo 123456789 | docker login -u carlosadrianpintos --password-stdin
+    - name: Push the tagged Docker image
+      run: docker push carlosadrianpintos/demo:nodeapp-${GITHUB_SHA}
