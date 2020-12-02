@@ -1,8 +1,7 @@
 version: '3.1'
 services:
   login-app:
-    image: latest123/login-app
-    build: .
+    image: carlosadrianpintos/demo:nodeapp-${COMMIT}
     restart: always
     ports:
       - '7500:7500'
